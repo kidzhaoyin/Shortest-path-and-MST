@@ -21,8 +21,8 @@ import javax.swing.JPanel;
 
 public class DijkstraFrame extends JFrame{
 
-	private static final int FRAME_WIDTH=600;
-	private static final int FRAME_HEIGHT=400;
+	private static final int FRAME_WIDTH = 600;
+	private static final int FRAME_HEIGHT = 400;
 	
 	private JLabel title;
 	private JLabel sourceLabel;
