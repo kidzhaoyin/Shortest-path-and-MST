@@ -13,9 +13,9 @@ public class DijkstraTest {
 	public static void main(String[] args) throws FileNotFoundException {
 		
 
-		File aFile=new File(args[0]);
-		File bFile=new File(args[1]);
-		JFrame frame=new DijkstraFrame(aFile,bFile);
+		File aFile = new File(args[0]);
+		File bFile = new File(args[1]);
+		JFrame frame = new DijkstraFrame(aFile, bFile);
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("Dijkstra's Shortest Path");

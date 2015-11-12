@@ -36,31 +36,31 @@ public class DijkstraFrame extends JFrame{
 	private DijkstraMap dmap;
 	
 	
-	public DijkstraFrame(final File aFile,final File bFile) throws FileNotFoundException{
+	public DijkstraFrame(final File aFile, final File bFile) throws FileNotFoundException {
 
-		dp=new DijkstraPath(aFile);
-		vs=dp.getVertices();
-		title=new JLabel("Please choose source and destination");
-		add(title,BorderLayout.NORTH);
+		dp = new DijkstraPath(aFile);
+		vs = dp.getVertices();
+		title = new JLabel("Please choose source and destination");
+		add(title, BorderLayout.NORTH);
 	
-		sourceLabel=new JLabel("Source:");	
-		add(sourceLabel,BorderLayout.WEST);
+		sourceLabel = new JLabel("Source:");	
+		add(sourceLabel, BorderLayout.WEST);
 	
-		desLabel=new JLabel("Destination:");
-		add(desLabel,BorderLayout.EAST);
+		desLabel = new JLabel("Destination:");
+		add(desLabel, BorderLayout.EAST);
 		
-		button=new JButton("Calculate");
+		button = new JButton("Calculate");
 		
 		//when the button is pressed, DijkstraMap is constructed and paintComponents method is called
-		class ChoiceListener implements ActionListener{
-			public void actionPerformed(ActionEvent event){
-				String s=(String) sourceComb.getSelectedItem();
-				String d=(String) desComb.getSelectedItem();
+		class ChoiceListener implements ActionListener {
+			public void actionPerformed(ActionEvent event) {
+				String s = (String) sourceComb.getSelectedItem();
+				String d = (String) desComb.getSelectedItem();
 				try {
-					JFrame fr=new JFrame();
-					fr.setSize(2000,2000);
+					JFrame fr = new JFrame();
+					fr.setSize(2000, 2000);
 					fr.setTitle("Dijkstra's Shortest Path");
-					dmap=new DijkstraMap(aFile,bFile,s,d);
+					dmap = new DijkstraMap(aFile,bFile,s,d);
 					fr.add(dmap);
 					fr.setVisible(true);
 					fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -71,35 +71,35 @@ public class DijkstraFrame extends JFrame{
 			}
 		}
 		
-		listener=new ChoiceListener();
+		listener = new ChoiceListener();
 		createControlPanel();
 		setSize(FRAME_WIDTH,FRAME_HEIGHT);
 	}
 	//create a control panel and put all components (labels, button, comboBox) onto the panel, add panel in the frame
-	public void createControlPanel(){
-		JPanel comboPanel=createComboBox();
-		JPanel controlPanel=new JPanel();
-		controlPanel.setLayout(new GridLayout(2,1));
+	public void createControlPanel() {
+		JPanel comboPanel = createComboBox();
+		JPanel controlPanel = new JPanel();
+		controlPanel.setLayout(new GridLayout(2, 1));
 		controlPanel.add(comboPanel);
 		controlPanel.add(button);
 		button.addActionListener(listener);
-		add(controlPanel,BorderLayout.SOUTH);
+		add(controlPanel, BorderLayout.SOUTH);
 		
 	}
 	
 	//method to create ComboBox for choosing source and destination
-	public JPanel createComboBox(){
-		sourceComb=new JComboBox();
-		desComb=new JComboBox();
-		for(Entry<String,DijkstraPath.Vertex> v:vs.entrySet()){
+	public JPanel createComboBox() {
+		sourceComb = new JComboBox();
+		desComb = new JComboBox();
+		for (Entry<String, DijkstraPath.Vertex> v : vs.entrySet()) {
 			sourceComb.addItem(v.getKey());
 			desComb.addItem(v.getKey());
 		}
 		sourceComb.setEditable(false);
 		desComb.setEditable(false);
 		
-		JPanel panel=new JPanel();
-		GridLayout layout=new GridLayout(1,2);
+		JPanel panel = new JPanel();
+		GridLayout layout = new GridLayout(1, 2);
 		layout.setHgap(80);
 		panel.setLayout(layout);
 		panel.add(sourceComb);

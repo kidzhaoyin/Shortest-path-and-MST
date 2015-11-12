@@ -36,13 +36,13 @@ public class Kruskal {
 		public Vertex u;
 		public double weight;
 		
-		public Edge( Vertex v, Vertex u, double weight) {
+		public Edge (Vertex v, Vertex u, double weight) {
 			this.v = v;
 			this.u = u;
 			this.weight = weight;
 		}
 
-		public int compareTo( Edge other) {
+		public int compareTo(Edge other) {
 			return Double.compare(this.weight, other.weight);
 		}
 	}
@@ -51,17 +51,18 @@ public class Kruskal {
 	private BinaryHeap<Edge> bh;
 	//keep track of number of vertices
 	private int numV;
-	private int x_max,y_max;
+	private int x_max, y_max;
 	
 	//aFile the file containing coordinates of all cities
-	public Kruskal(File aFile) throws FileNotFoundException{
+	public Kruskal(File aFile) throws FileNotFoundException {
 		
 		Scanner in = new Scanner(aFile);
 		
 		//put all vertices in the ArrayList
 		numV = 0;
-		x_max = 0; y_max = 0;
-		while( in.hasNextLine()){
+		x_max = 0; 
+		y_max = 0;
+		while (in.hasNextLine()) {
 			String aLine = in.nextLine();
 			String[] info = aLine.split("\\s+");
 			String name = info[0];
@@ -70,22 +71,23 @@ public class Kruskal {
 			int yaxis = Integer.parseInt(info[2]);
 			Vertex v = new Vertex(name, xaxis, yaxis);
 			
-			if( xaxis > x_max )
+			if (xaxis > x_max) {
 				x_max = xaxis;
-			if( yaxis > y_max )
+			}
+			if (yaxis > y_max) {
 				y_max = yaxis;
+			}
 			vertices.add(v);
 			numV++;			
 		}
 		//put all edges to the BinaryHeap
-		bh = new BinaryHeap<Edge>( numV * numV / 2 - numV / 2);
-		for(int j=0;j<vertices.size()-1;j++){
-			for(int k=j+1;k<(vertices.size());k++){
-				Vertex u=vertices.get(j),v=vertices.get(k);
-				double weight=Math.sqrt(Math.pow(u.x-v.x, 2)+Math.pow(u.y-v.y, 2));
-				Edge e=new Edge(u,v,weight);
+		bh = new BinaryHeap<Edge>(numV * numV / 2 - numV / 2);
+		for (int j = 0; j < vertices.size() - 1; j++) {
+			for (int k = j + 1; k < (vertices.size()); k++) {
+				Vertex u = vertices.get(j), v = vertices.get(k);
+				double weight = Math.sqrt(Math.pow(u.x - v.x, 2) + Math.pow(u.y - v.y, 2));
+				Edge e = new Edge(u, v, weight);
 				bh.insert(e);
-				
 			}
 		}		
 	}
@@ -93,18 +95,18 @@ public class Kruskal {
 	//method to construct the minimum spanning tree and put all chosen edges into an ArrayList
 	public ArrayList<Edge> findPath() {
 		//each single vertex in a set
-		DisjSets ds=new DisjSets(numV);
+		DisjSets ds = new DisjSets(numV);
 		
-		ArrayList<Edge> mst=new ArrayList<Edge>();
+		ArrayList<Edge> mst = new ArrayList<Edge>();
 		
-		while(mst.size()!=numV-1){
+		while (mst.size() != numV - 1) {
 			//find the smallest remaining edge
-			Edge min=bh.deleteMin();
+			Edge min = bh.deleteMin();
 			
-			int p1=ds.find(vertices.indexOf(min.u));
-			int p2=ds.find(vertices.indexOf(min.v));
+			int p1 = ds.find(vertices.indexOf(min.u));
+			int p2 = ds.find(vertices.indexOf(min.v));
 			
-			if(p1!=p2){
+			if (p1 != p2) {
 				mst.add(min);
 				ds.union(p1, p2);
 			}
@@ -113,20 +115,21 @@ public class Kruskal {
 	}
 	
 	//method to get the list of all vertices
-	public ArrayList<Vertex> getVertices(){
+	public ArrayList<Vertex> getVertices() {
 		return vertices;
 	}
 	//method to print out path in console window
-	public void printPath(ArrayList<Edge> mst){
+	public void printPath(ArrayList<Edge> mst) {
 		System.out.println("Minimum spanning tree city pairs:");
-		for(Edge e:mst)
-			System.out.println("("+e.u.name+" , "+e.v.name+")");
+		for (Edge e : mst) {
+			System.out.println("(" + e.u.name + " , " + e.v.name + ")");
+		}
 	}
 	
-	public int getX_max(){
+	public int getX_max() {
 		return x_max;
 	}
-	public int getY_max(){
+	public int getY_max() {
 		return y_max;
 	}
 }
